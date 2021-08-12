@@ -32,7 +32,6 @@ function createWindow() {
     win.webContents.openDevTools();
 } 
 
-
 app.on('open-url', function (event, data) {
     event.preventDefault();
     console.log(data);
