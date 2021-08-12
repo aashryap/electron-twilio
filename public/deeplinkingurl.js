@@ -3,12 +3,15 @@ const {app} = require('electron');
 
 
 module.exports.getDeeplinkUrl = new Promise((resolve) => {
+
+  let deepLinkUrl = null;
+
   if (isDev && process.platform === 'win32') {
     // Set the path of electron.exe and your app.
     // These two additional parameters are only available on windows.
     // Setting this is required to get this working in dev mode.
     app.setAsDefaultProtocolClient('electron-twilio', process.execPath, [
-      resolve(process.argv[1])
+      console.log(process.argv[1])
     ]);
   } else {
     app.setAsDefaultProtocolClient('electron-twilio');
@@ -16,7 +19,7 @@ module.exports.getDeeplinkUrl = new Promise((resolve) => {
   
   app.on('open-url', function (event, url) {
     event.preventDefault();
-    resolve(url);
+    deepLinkUrl = url;
   });
   
   // Force single application instance
@@ -24,12 +27,11 @@ module.exports.getDeeplinkUrl = new Promise((resolve) => {
   
   if (!gotTheLock) {
     app.quit();
-    return;
   } else {
     app.on('second-instance', (e, argv) => {
       if (process.platform !== 'darwin') {
         // Find the arg that is our custom protocol url and store it
-        resolve(argv.find((arg) => arg.startsWith('electron-twilio://')));
+        deepLinkUrl = argv.find((arg) => arg.startsWith('electron-twilio://'));
       }
     });
   }

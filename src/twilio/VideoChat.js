@@ -19,7 +19,6 @@ const VideoChat = ({
   const [room, setRoom] = useState(null);
   const [connecting, setConnecting] = useState(null);
   const [roomConnectionError, setRoomConnectionError] = useState(null);
-  const [twilioCleanup,setTwilioCleanup] = useState(()=>{});
 
   useEffect(() => {
     console.log({twilioSupported,twilioToken,roomName})

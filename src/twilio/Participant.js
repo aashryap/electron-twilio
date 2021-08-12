@@ -5,8 +5,7 @@ const Participant = ({
   isAudioOn = false,
   name = "",
   webcamTrack,
-  audioTrack,
-  isLocal
+  audioTrack
 }) => {
   const videoRef = useRef();
   const audioRef = useRef();
@@ -35,7 +34,6 @@ const Participant = ({
       <video
         data-name={name}
         className={`${isWebcamOn ? "video-on" : "video-off"} w-full`}
-        // style={styles.webcamVideo}
         ref={videoRef}
         autoPlay={true}
       />

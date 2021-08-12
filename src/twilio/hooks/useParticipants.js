@@ -7,18 +7,21 @@ export const useParticipants = (
 ) => {
   const [participants, setParticipants] = useState([]);
 
-  const participantConnected = participant => {
-    setParticipants(prev => [...prev, participant]);
-    onConnect(participant);
-  };
-
-  const participantDisconnected = participant => {
-    setParticipants(prev => prev.filter(p => p !== participant));
-    onDisconnect(participant);
-  };
 
   useEffect(() => {
     if (room) {
+
+
+      const participantConnected = participant => {
+        setParticipants(prev => [...prev, participant]);
+        onConnect(participant);
+      };
+
+      const participantDisconnected = participant => {
+        setParticipants(prev => prev.filter(p => p !== participant));
+        onDisconnect(participant);
+      };
+
       setParticipants([room.localParticipant]);
       room.on("participantConnected", participantConnected);
       room.on("participantDisconnected", participantDisconnected);
