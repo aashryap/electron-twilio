@@ -60,7 +60,16 @@ function App() {
       <br />      
       <button onClick={sendMessage}>SEND MESSAGE</button><br />
       <button onClick={sendInitMessage}>INIT TWILIO</button>
-
+      {
+        /*
+        <VideoChat
+          roomName={}
+          twilioToken={}
+          >
+          ((participants,getParticipant,localState)=>{})
+         <VideoChat/>
+        */
+      }
       <div>
         {
           windowType === "main-window" ?

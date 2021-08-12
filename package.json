@@ -5,6 +5,7 @@
   "main": "public/Main.js",
   "homepage": "./",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -16,6 +17,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "tailwind": "postcss tailwind/tailwind.css -o src/styles/tailwind.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -59,7 +61,11 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^10.3.1",
     "electron": "^13.1.8",
-    "electron-builder": "^22.11.7"
+    "electron-builder": "^22.11.7",
+    "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.2.7"
   }
 }
