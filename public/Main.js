@@ -33,7 +33,7 @@ function createWindow1 () {
     window1.loadURL('http://localhost:3002/');
     window1.setAlwaysOnTop(true, "floating");
     // win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
-    // window1.webContents.openDevTools();    
+    window1.webContents.openDevTools();    
 } 
 
 function createWindow3 () {   
