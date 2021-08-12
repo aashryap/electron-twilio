@@ -66,7 +66,11 @@ function App() {
           roomName={}
           twilioToken={}
           >
-          ((participants,getParticipant,localState)=>{})
+          ((participants,getParticipant,localState)=>{
+            return <>{participants.map((participant)=>{
+              return <>{getParticipant(participant)}</>
+            })}</>
+          })
          <VideoChat/>
         */
       }
