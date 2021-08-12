@@ -11,7 +11,6 @@ function App() {
   useEffect(() => {
     if (window.api){
       window.api.receive('message', (message) => {
-        console.log("MEssage", message);
         eventHandler(message)
       });
       window.api.send('react-ready', true);
@@ -30,7 +29,7 @@ function App() {
         break;
     } 
   }
-  console.log(twilioInitData);
+
   return (
     <div className="w-screen h-screen relative pb-32 bg-white font-ro"> 
     {

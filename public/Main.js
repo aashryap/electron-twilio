@@ -28,16 +28,37 @@ function createWindow() {
             enableRemoteModule: true
         }})
     win.setAlwaysOnTop(true, "floating");
-    win.loadURL('http://localhost:3001/');
-    // win.loadURL(isDev ? 'http://localhost:3001/' : `file://${path.join(__dirname, '../build/index.html')}`);
+    win.loadURL(isDev ?'http://localhost:3000/':{
+        pathname:path.join(__dirname, '../build/index.html'),
+        protocol:"file:",
+        slashes:true
+    });
     win.webContents.openDevTools();
-} 
+}
 
-app.on('open-url', function (event, data) {
-    event.preventDefault();
-    console.log(data);
-    params = data;
+const listenOpenUrl = ()=>{
+    app.on('open-url', function (event, data) {
+        event.preventDefault();
+        console.log(data);
+        params = data;
+    });
+}
+
+app.on ('will-finish-launching' , listenOpenUrl);
+
+listenOpenUrl();
+
+const primaryInstance = app.requestSingleInstanceLock();
+if (!primaryInstance) {
+    app.quit();
+    return;
+}
+
+app.on('second-instance', (event, args) => {
+    params = args[args.length-1];
+    win.webContents.send('message', {type: "INIT_TWILIO", data: params});
 });
+
 
 app.on('ready', createWindow);
 
