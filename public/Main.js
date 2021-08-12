@@ -28,7 +28,8 @@ function createWindow() {
             enableRemoteModule: true
         }})
     win.setAlwaysOnTop(true, "floating");
-    win.loadURL(isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`);
+    win.loadURL('http://localhost:3001/');
+    // win.loadURL(isDev ? 'http://localhost:3001/' : `file://${path.join(__dirname, '../build/index.html')}`);
     win.webContents.openDevTools();
 } 
 
