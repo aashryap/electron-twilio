@@ -49,6 +49,7 @@ const VideoChat = ({
             setConnecting(false);
           })
           .catch(err => {
+            console.log(err);
             setConnecting(false);
             if (err && MEDIA_ERRORS.includes(err.name)) {
               handleMediaError(err);
@@ -126,7 +127,6 @@ const VideoChat = ({
     </Room>
   ) : (
     <>
-      alsjdlkasjdlkasjdl
     </>
   );
 };

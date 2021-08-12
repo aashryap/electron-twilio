@@ -6,6 +6,7 @@ const Participant = ({
   name = "",
   webcamTrack,
   audioTrack,
+  isLocal
 }) => {
   const videoRef = useRef();
   const audioRef = useRef();
@@ -30,16 +31,16 @@ const Participant = ({
 
 
   return (
-    <>
+    <div className={`rounded-xl overflow-hidden`}>
       <video
         data-name={name}
-        className={`${isWebcamOn ? "video-on" : "video-off"} w-50`}
+        className={`${isWebcamOn ? "video-on" : "video-off"} w-full`}
         // style={styles.webcamVideo}
         ref={videoRef}
         autoPlay={true}
       />
       <audio ref={audioRef} autoPlay={false} />
-    </>
+    </div>
   );
 };
 
