@@ -1,11 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Lobby from './Lobby';
 import Room from "./Room";
+import service from './services/service';
 
-const VideoChat = ({windowType}) => {
+const VideoChat = ({windowType, twilioInitData}) => {
     const [userName, setUserName] = useState('');
     const [roomName, setRoomName] = useState('');
     const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        console.log("aaaaaaaaa ", twilioInitData);
+        if (twilioInitData !== null) {
+            setUserName(twilioInitData.participantName);
+            setRoomName(twilioInitData.roomName);
+            getTwilioToken({userName: twilioInitData.participantName, roomName: twilioInitData.roomName});
+        }
+    },[twilioInitData]);
 
     const handleUserNameChange = (e) => {
         setUserName(e.target.value);
@@ -15,21 +25,13 @@ const VideoChat = ({windowType}) => {
         setRoomName(e.target.value)
     }
 
+    const getTwilioToken = async ({userName, roomName}) => {
+        const data = await service.getToken({userName, roomName});
+        setToken(data.token);
+    }
+
     const handleSubmit = async () => {
-        console.log("DO SOMETHING");
-        const data = await fetch('http://secret-retreat-99293.herokuapp.com/video/token', {
-        // const data = await fetch('http://localhost:4000/video/token', {
-            method: 'POST',
-            body: JSON.stringify({
-              identity: userName,
-              room: roomName
-            }),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }).then(res => res.json());
-          console.log("DATA ", data);
-          setToken(data.token);
+        getTwilioToken({userName, roomName});
     }
 
 

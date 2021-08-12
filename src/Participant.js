@@ -54,7 +54,7 @@ const Participant = ({participant}) => {
     return (
         <div>
             <div>{`Name: ${participant.identity}`}</div>
-            <video ref={videoRef} autoPlay={true}/>
+            <video ref={videoRef} autoPlay={true} style={{height: "800px", width: "1200px"}}/>
             <audio ref={audioRef} autoPlay={true} mute={true}/>
         </div>
     );
