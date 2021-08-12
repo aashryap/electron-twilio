@@ -33,7 +33,7 @@ function createWindow1 () {
     window1.loadURL('http://localhost:3002/');
     window1.setAlwaysOnTop(true, "floating");
     // win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
-    window1.webContents.openDevTools();    
+    // window1.webContents.openDevTools();    
 } 
 
 function createWindow3 () {   
@@ -47,7 +47,7 @@ function createWindow3 () {
         }})          
     window3.loadURL('http://localhost:3002/');
     // window3.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
-    window3.webContents.openDevTools();    
+    // window3.webContents.openDevTools();    
 } 
 
 function createWindow2 () {   
@@ -90,4 +90,4 @@ app.on('open-url', function (event, data) {
 
 app.on('ready', createWindow1);
 // app.on('ready', createWindow2);
-// app.on('ready', createWindow3);
+app.on('ready', createWindow3);

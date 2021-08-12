@@ -45,17 +45,20 @@ const Room = ({token, roomName, handleLogout}) => {
     return (
         <div>
             <h2>{`Room Name : ${roomName}`}</h2>
-            <div>
-                {
-                    room ? 
-                        <Participant key={room.localParticipant.sid} participant={room.localParticipant}/>:
-                    null
-                }
+            <div style={{display: "flex", justifyContent: "space-between", flexDirection: "row"}}>
+              <div>
+                  {
+                      room ? 
+                          <Participant pinned key={room.localParticipant.sid} participant={room.localParticipant}/>:
+                      null
+                  }
+              </div>
+              <div>
+                <h3>Remote participants</h3>
+                  {remoteParticipants}
+              </div>
             </div>
-            <h3>Remote participants</h3>
-            <div>
-                {remoteParticipants}
-            </div>
+            
         </div>
     )
 };

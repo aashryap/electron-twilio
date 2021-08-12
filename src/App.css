@@ -1,7 +1,8 @@
 .App {
   background-color: white;
   height: 100vh;
-  text-align: center;
+  /* text-align: center; */
+  padding: 50px;
 }
 
 .App-logo {
@@ -37,4 +38,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.video-pinned {
+  height: 1200px;
+  width: 1200px;
+}
+
+.video-unpinned {
+  height: 200px;
+  width: 350px;
+}
+
+video {
+  width: 100% !important;
+  /* height: 100% !important; */
+}
+
+.video-container {
+  /* border-radius: 5px; */
+  overflow: hidden;
+  border: solid 4px black;
+  /* display: inline-block; */
+  margin-top: 50px;
+  border-radius: 50px;
 }

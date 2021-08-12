@@ -51,7 +51,7 @@ function App() {
 
   return (
     <div className="App">
-      {
+      {/* {
         windowType ? 
           <h3>{windowType}</h3> : null
       }
@@ -59,7 +59,7 @@ function App() {
       <br />
       <br />      
       <button onClick={sendMessage}>SEND MESSAGE</button><br />
-      <button onClick={sendInitMessage}>INIT TWILIO</button>
+      <button onClick={sendInitMessage}>INIT TWILIO</button> */}
 
       <div>
         {

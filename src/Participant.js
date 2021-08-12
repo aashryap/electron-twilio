@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import './App.css';
 
-const Participant = ({participant}) => {
+const Participant = ({participant, pinned}) => {
     const [audioTracks, setAudioTracks] = useState([]);
     const [videoTracks, setVideoTracks] = useState([]);
 
@@ -54,7 +55,9 @@ const Participant = ({participant}) => {
     return (
         <div>
             <div>{`Name: ${participant.identity}`}</div>
-            <video ref={videoRef} autoPlay={true} style={{height: "800px", width: "1200px"}}/>
+            <div className={`video-container ${pinned ? 'video-pinned' : 'video-unpinned'}`} style={{height: "500px"}}>
+              <video ref={videoRef} autoPlay={true} style={{height: "100%"}} />
+            </div>
             <audio ref={audioRef} autoPlay={true} mute={true}/>
         </div>
     );
