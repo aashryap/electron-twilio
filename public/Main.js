@@ -16,20 +16,6 @@ if (isDev && process.platform === 'win32') {
     app.setAsDefaultProtocolClient(PROTOCOL_NAME);
 }
 
-const gotTheLock = app.requestSingleInstanceLock();
-console.log(gotTheLock);
-if (!gotTheLock) {
-    app.quit();
-} else {
-    app.on('second-instance', (e, argv) => {
-        if (process.platform !== 'darwin') {
-            params = argv.find((arg) => arg.startsWith('electron-twilio://'));
-        }
-        console.log(params);
-    });
-}
-
-
 ipc.on('react-ready', () => {
     win.webContents.send('message', {type: "INIT_TWILIO", data: params});
 })
