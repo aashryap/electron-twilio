@@ -49,11 +49,11 @@ function App() {
                   <div className="w-3/4 h-full mr-4 pb-4">
                     <div className="relative h-full pt-24">
                       <div className="absolute rounded top-0 left-0 w-full h-20 bg-blue-100 flex items-center px-4">
-                        <WhjrLogo height={54} width={200} className="mb-3"></WhjrLogo>
+                        <WhjrLogo height={54} width={200} className="mb-3"/>
                       </div>
-                    {
-                      getParticipant({participant: {identity: localParticipantIdentity}, name:"Me"})
-                    }
+                      {
+                        getParticipant({participant: {identity: localParticipantIdentity}, name:"Me"})
+                      }
                     </div>
                   </div>
                   <div className="w-1/4 overflow-y-auto bg-blue-100 rounded mb-4 p-2">
