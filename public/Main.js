@@ -17,50 +17,50 @@ if (isDev && process.platform === 'win32') {
 }
 
 ipc.on('react-ready', () => {
-    win.webContents.send('message', {type: "INIT_TWILIO", data: params});
+    win.webContents.send('message', {type: "INIT_TWILIO", data: process.argv});
+})
+
+ipc.on('react-close', () => {
+    app.quit();
 })
 
 function createWindow() {
-    win = new BrowserWindow({width: 800, height: 600,
+    win = new BrowserWindow({width: 1000, height: 800,
         webPreferences: {
             nodeIntegration: false,
             preload: path.join(__dirname,'/preload-main.js'),
             enableRemoteModule: true
         }})
     win.setAlwaysOnTop(true, "floating");
-    win.loadURL(isDev ?'http://localhost:3000/':{
-        pathname:path.join(__dirname, '../build/index.html'),
-        protocol:"file:",
-        slashes:true
-    });
-    win.webContents.openDevTools();
+    win.loadURL(isDev ?'http://localhost:3000/':`file://${path.join(__dirname, '../build/index.html')}`);
+    win.removeMenu();
+    if (isDev) win.webContents.openDevTools();
 }
 
 const listenOpenUrl = ()=>{
     app.on('open-url', function (event, data) {
         event.preventDefault();
-        console.log(data);
         params = data;
+        win.webContents.send('message', {type: "INIT_TWILIO", data});
     });
 }
 
-app.on ('will-finish-launching' , listenOpenUrl);
+app.on('will-finish-launching' ,listenOpenUrl);
 
 listenOpenUrl();
 
-const primaryInstance = app.requestSingleInstanceLock();
-if (!primaryInstance) {
+const gotTheLock  = app.requestSingleInstanceLock();
+
+if (gotTheLock ) {
+    app.on('second-instance', (event, args) => {
+        params = args[args.length-1];
+        console.log(params);
+        win.webContents.send('message', {type: "INIT_TWILIO", data: params});
+    });
+    app.on('ready', createWindow);
+}else{
     app.quit();
-    return;
 }
-
-app.on('second-instance', (event, args) => {
-    params = args[args.length-1];
-    win.webContents.send('message', {type: "INIT_TWILIO", data: params});
-});
-
-
-app.on('ready', createWindow);
 
 
 

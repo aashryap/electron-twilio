@@ -11,15 +11,12 @@ export const useParticipants = (
   useEffect(() => {
     if (room) {
 
-
       const participantConnected = participant => {
         setParticipants(prev => [...prev, participant]);
-        onConnect(participant);
       };
 
       const participantDisconnected = participant => {
         setParticipants(prev => prev.filter(p => p !== participant));
-        onDisconnect(participant);
       };
 
       setParticipants([room.localParticipant]);

@@ -9,7 +9,8 @@ import Video from "twilio-video";
 export const Room = ({
   room,
   getIdentityInfo = () => {},
-  children
+  children,
+  handleLogout
 }) => {
 
   useEffect(() => {
@@ -77,16 +78,16 @@ export const Room = ({
   };
 
   const getParticipant = ({
-    participant
+    participant,
+    name
   }) => {
     const { identity } = participant || {};
-    const name = "";
     const isWebcamOn = communication[identity] && communication[identity].isWebcamOn;
     const isAudioOn = communication[identity] && communication[identity].isAudioOn;
 
     const webcamTrack = roomParticipantTrackMap[identity] ? roomParticipantTrackMap[identity].webcam : null;
     const audioTrack = roomParticipantTrackMap[identity] ? roomParticipantTrackMap[identity].audio : null;
-    console.log({isWebcamOn, isAudioOn, webcamTrack, audioTrack, participant});
+
     return (
       <Participant
         isWebcamOn={isWebcamOn}
@@ -98,7 +99,7 @@ export const Room = ({
       />
     );
   };
-  console.log({participants, room, communication, roomParticipantTrackMap}); 
+
   return (
     <>
       {children ? (
@@ -116,7 +117,8 @@ export const Room = ({
               start: () => {startAllLocalAudioTracks(room)},
               stop: () => {stopAllLocalAudioTracks(room)}
             }
-          }
+          },
+          handleLogout
         )
       ):<></>}
     </>

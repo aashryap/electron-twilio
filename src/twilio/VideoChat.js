@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import Video, { isSupported as twilioSupported } from "twilio-video";
+import Video from "twilio-video";
 import {Room} from "./Room";
 
 const MEDIA_ERRORS = [
@@ -17,22 +17,10 @@ const VideoChat = ({
   children,
 }) => {
   const [room, setRoom] = useState(null);
-  const [connecting, setConnecting] = useState(null);
-  const [roomConnectionError, setRoomConnectionError] = useState(null);
 
   useEffect(() => {
-    console.log({twilioSupported,twilioToken,roomName})
-    if (true && twilioToken && roomName) {
-      const handleMediaError = error => {
-        setRoomConnectionError({
-          name: error.name,
-          message: error.message
-        });
-      };
+    if (twilioToken && roomName) {
       const TwilioConnect = function(token, name, tracks = null) {
-        console.log("TWILIO CONNECT");
-        setConnecting(true);
-
         Video.connect(token, {
           name,
           networkQuality: {
@@ -42,27 +30,17 @@ const VideoChat = ({
           tracks
         })
           .then(room => {
-            console.log("ROOM ", room);
-            setRoomConnectionError(null);
             setRoom(room);
-            setConnecting(false);
           })
           .catch(err => {
-            console.log(err);
-            setConnecting(false);
             if (err && MEDIA_ERRORS.includes(err.name)) {
-              handleMediaError(err);
+
             } else {
-              handleMediaError({
-                name: err.name,
-                message: "Error in connecting Room",
-                type: "CUSTOM",
-                rawMessage: err.message
-              });
+
             }
           });
       };
-      console.log("USE EFFEECT");
+
       Video.createLocalTracks({
         audio:{
           autoGainControl: true,
@@ -76,11 +54,9 @@ const VideoChat = ({
         }
       })
         .then(localTracks => {
-          console.log("Local Tracks ", localTracks);
           TwilioConnect(twilioToken, roomName, localTracks);
         })
         .catch(err => {
-          console.log(`Create local tracks Error.`, err);
           TwilioConnect(twilioToken, roomName, null);
         });
     }
@@ -121,6 +97,7 @@ const VideoChat = ({
     <Room
       room={room}
       getIdentityInfo={getIdentityInfo}
+      handleLogout={handleLogout}
     >
       {children}
     </Room>
