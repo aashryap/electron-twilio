@@ -25,7 +25,7 @@ ipc.on('react-close', () => {
 })
 
 function createWindow() {
-    win = new BrowserWindow({width: 1000, height: 800,
+    win = new BrowserWindow({width: 1200, height: 800,
         webPreferences: {
             nodeIntegration: false,
             preload: path.join(__dirname,'/preload-main.js'),
